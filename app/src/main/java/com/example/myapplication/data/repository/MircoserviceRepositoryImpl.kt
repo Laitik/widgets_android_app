@@ -9,8 +9,9 @@ import io.reactivex.Single
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import javax.inject.Inject
 
-class MircoserviceRepositoryImpl(private val widgetCappApi: WidgetCallApi) : RemoteServiceRepository {
+class MircoserviceRepositoryImpl @Inject constructor(val widgetCappApi: WidgetCallApi) : RemoteServiceRepository {
 
     override fun getWidgets(UserID: Long, locale: String): Single<List<Widget>> {
         val call = widgetCappApi.getWidgets(UserID, locale)
