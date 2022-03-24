@@ -31,7 +31,7 @@ class ListWidgets : Fragment() {
     )
 
     private fun showData(data: List<Widget>) {
-        rv_adapter?.setItems(data)
+        rv_adapter?.items = data
         tv?.setText(" Всего виджетов: " + data.size)
     }
 
