@@ -20,30 +20,20 @@ class WidgetViewModel(
     private val _itemData: MutableLiveData<List<Widget>?> = MutableLiveData()
     val itemData: LiveData<List<Widget>?> = _itemData
 
-    fun getItems() = database.getItems()
-        .compose(doAsyncSingle())
-        .subscribe({
-            it?.let { _itemData.postValue(it) } ?: loadItemsFromService()
-        }, {
-            Log.e(TAG, it.cause?.message ?: "Ошибка получения данных с БД")
-        }).addToComposite()
-
-    fun saveItems(items: List<Widget>) = database.saveItems(items)
-        .compose(doAsyncSingle())
-        .subscribe({
-            Log.e("", "")
-        }, {
-            Log.e(TAG, it.cause?.message ?: "Ошибка добавления данных в БД")
-        }).addToComposite()
-
-    private fun loadItemsFromService() =
+    fun getItems() =
         controllerApi.getWidgets(userInfo)
+            .doOnSuccess { saveItems(it)}
             .compose(doAsyncSingle())
             .subscribe({
                 _itemData.postValue(it)
-                saveItems(it)
             }, {
                 Log.e(TAG, it.cause?.message ?: "Ошибка запроса виджетов с сервиса")
-            }).addToComposite()
+            })
+            .addToComposite()
 
+    fun saveItems(items: List<Widget>) = database.saveItems(items)
+        .compose(doAsyncSingle())
+        .subscribe({ }, {
+            Log.e(TAG, it.cause?.message ?: "Ошибка добавления данных в БД")
+        }).addToComposite()
 }

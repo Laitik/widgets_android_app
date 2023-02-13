@@ -9,7 +9,9 @@ import com.example.myapplication.domain.repository.CashRepository
 import io.reactivex.Single
 import javax.inject.Inject
 
-class CashRepositoryImpl @Inject constructor(val database: WidgetDatabase): CashRepository {
+class CashRepositoryImpl @Inject constructor(
+    private val database: WidgetDatabase
+) : CashRepository {
 
     override fun getItems(): Single<List<Widget>?> = Single.defer {
         Single.just(database.widgetListDao().getItems().map { it.toWidget() })

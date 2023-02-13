@@ -7,7 +7,7 @@ import com.example.myapplication.domain.repository.RemoteServiceRepository
 import io.reactivex.Single
 import javax.inject.Inject
 
-class ControllerApi @Inject constructor(val mircoserviceRepositoryImpl: RemoteServiceRepository) {
+class ControllerApi @Inject constructor(private val mircoserviceRepositoryImpl: RemoteServiceRepository) {
 
     fun getWidgets(user: UserInfo): Single<List<Widget>> =
         mircoserviceRepositoryImpl.getWidgets(user.id, DEFAULT_LANG)
