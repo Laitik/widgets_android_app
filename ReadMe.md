@@ -1,0 +1,1 @@
+Приложение для отображения списка Виджетов доступных к подключению на сайт, подробнее <a href="http://widgets.newton-studio.com/about_call_btn/">тут<a> или <a href="http://widgets.newton-studio.com/about_banners/">тут<a>
